@@ -6,6 +6,26 @@
 /* singly linked list */
 // node keeps track of the next node in sequence using a pointer that points to another linked list node
 
+// node constructor
+class Node {
+  constructor(value, next) {
+    this.value = value
+    this.next = null
+  }
+}
+
+class SingleLinkedList {
+  constructor() {
+    this.head = null
+    this.tail = null
+  }
+
+  //add
+
+  //remove
+
+  // traverse
+}
 
 
 
@@ -46,7 +66,7 @@ class LinkedList {
 // similar to push in an array, add a node to the end of the list
   addToTail() {
     let newNode = new Node(value, null, this.tail)
-    if (this.nail) this.tail.next = newNode
+    if (this.tail) this.tail.next = newNode
     else this.head = newNode
     this.tail = newNode
   }
