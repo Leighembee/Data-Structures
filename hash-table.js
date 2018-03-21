@@ -35,10 +35,55 @@ class HashTable {
     } else if (this.buckets[index].key === key) {
       this.buckets[index].value = value
     } else {
-
+      let currentNode = this.buckets[index]
+      while (currentNode.next) {
+        if (currentNode.next.key === key) {
+          currentNode.next.value = value
+          return
+        }
+        currentNode = currentNode.next
+      }
+      currentNode.next = new HashNode(key, value)
     }
+  }
+
+  // search through our hash table and look up nodes using a key that we will pass in as an argument, run our key through the hash function to obtain the index, than we can run a lookup in constant time
+  get(key) {
+    let index = this.hash(key)
+    if (!this.buckets[index]) return null
+    let currentNode = this.buckets[index]
+    while (currentNode) {
+      if (currentNode.key === key) return currentNode.value
+      currentNode = currentNode.next
+    }
+    return null
+  }
+
+  // removing a node, using same logic as above, but once the key is found delete it rather than return it
+  remove(key) {
+    let index = this.hash(key)
+    if (!this.buckets[index]) return null
+    let currentNode = this.buckets[index]
+    while (currentNode) {
+      if (currentNode.key === key) delete currentNode.value
+      currentNode = currentNode.next
+    }
+    return null
+  }
+
+
+  // retrieving every node from our hash table. traversing is a weak point of hash tables as the runtime is O(n2)
+  retrieveAll() {
+    let allNodes = []
+    for (let i = 0; i < this.numBuckets; i++) {
+      let currentNode = this.buckets[i]
+      while (currentNode) {
+        allNodes.push(currentNode)
+        currentNode = currentNode.next
+      }
+    }
+    return allNodes
   }
 }
 
 let myHT = new HashTable(30)
-
